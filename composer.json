@@ -1,0 +1,17 @@
+{
+    "name": "blackpanda/crypto-api",
+    "description": "Get Data of Cryptos using APIs",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "BlackPanda\\CryptoApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "BlackPanda",
+            "email": "46260610+B14ckP4nd4@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
