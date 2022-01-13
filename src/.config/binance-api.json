@@ -1,0 +1,9 @@
+{
+    "api-key": "<api key>",
+    "api-secret": "<secret>",
+    "proto": "http",
+    "address": "127.0.0.1",
+    "port": "7777",
+    "user": "test",
+    "pass": "cwncwn"
+}
