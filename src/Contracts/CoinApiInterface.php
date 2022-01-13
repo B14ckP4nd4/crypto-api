@@ -1,10 +1,10 @@
 <?php
 
 
-namespace BlackPanda\Contracts;
+namespace BlackPanda\CryptoApi\Contracts;
 
 
-class CoinApiInterface
+interface CoinApiInterface
 {
 
 }
