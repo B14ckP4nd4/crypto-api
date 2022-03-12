@@ -3,15 +3,19 @@
 namespace BlackPanda\CryptoApi\Providers;
 
 use Binance\API;
-use BlackPanda\CryptoApi\Contracts\CoinApiInterface;
+use BlackPanda\CryptoApi\Contracts\CoinApi;
 
-class BinanceApi implements CoinApiInterface
+class BinanceApi extends CoinApi
 {
-    public function __construct()
+    public function __construct($api_key , $api_sec , $api_config)
     {
-        $api = new API(__DIR__ . "\..\\.config\binance-api.json");
-        $api->caOverride = true;
-        dd($api->coins());
+        if($api_key && $api_sec)
+            $this->api = new API($api_key, $api_sec);
+
+        if($api_config && file_exists($api_config))
+            $this->api = new API($api_config);
+
+        if(!$this->api) throw new \Exception("Api Didn't set properly");
     }
 
     public function getCoinsList()
