@@ -5,11 +5,12 @@ namespace BlackPanda\CryptoApi\Providers;
 use Binance\API;
 use BlackPanda\CryptoApi\Contracts\CoinApi;
 use BlackPanda\CryptoApi\Contracts\CoinApiInterface;
-use BlackPanda\CryptoApi\utils\Math;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Redis;
 
 class BinanceApi extends CoinApi implements CoinApiInterface
 {
+    CONST PROVIDER_NAME = "BINANCE";
     private $BTC_PRICE = null;
     public function __construct($api_key , $api_sec , $api_config = null)
     {
@@ -76,5 +77,16 @@ class BinanceApi extends CoinApi implements CoinApiInterface
         }
 
         return false;
+    }
+
+    public function livePrice(){
+        $redisConnection = Redis::connection();
+
+        $this->api->miniTicker(function($api,$ticker) use ($redisConnection) {
+            foreach ($ticker as $info){
+                $info['eventTime'] = $info['eventTime'] / 1000;
+                $redisConnection->set(self::PROVIDER_NAME . "_" .$info['symbol'] , json_encode($info));
+            }
+        });
     }
 }
